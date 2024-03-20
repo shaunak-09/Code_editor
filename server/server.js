@@ -4,7 +4,7 @@ const app = express();
 const port = process.env.PORT || 8000;
 const routes=require('./routes')
 const connection=require('./db')
-const redis = require('redis');
+const redisClient=require('./redis')
 
 // Connect to MySQL
 connection.connect((err) => {
@@ -14,10 +14,17 @@ connection.connect((err) => {
 
 app.use(bodyParser.json());
 
-const redisClient = redis.createClient();
-redisClient.on('connect', () => {
-    console.log('Connected to Redis');
-  });
+
+// (async()=>{
+//     try{
+//     await redisClient.connect()
+//     console.log('Redis connected');
+//     }
+//     catch(err)
+//     {
+//         console.log(err);
+//     }
+// })
   
 
 app.use('/api',routes)
