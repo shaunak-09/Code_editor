@@ -27,7 +27,7 @@ const snippets=async(req,res)=>{
     const cachedData=await redisClient.GET(redisKey)
     if(cachedData)
     {
-        console.log(1);
+        console.log('Snippet fetched');
         const snippets = JSON.parse(cachedData);
         res.status(200).json(snippets);
     }
@@ -42,7 +42,7 @@ const snippets=async(req,res)=>{
       {
 
         redisClient.SETEX(redisKey, 3600, JSON.stringify(results[0]));
-        console.log('2');
+        console.log('Snippet fetched');
         res.status(200).json(results[0]);
       }
     }
