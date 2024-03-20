@@ -5,6 +5,8 @@ const port = process.env.PORT || 8000;
 const routes=require('./routes')
 const connection=require('./db')
 const redisClient=require('./redis')
+const cors=require('cors')
+
 
 // Connect to MySQL
 connection.connect((err) => {
@@ -14,7 +16,9 @@ connection.connect((err) => {
 
 app.use(bodyParser.json());
 
-
+app.use(cors({
+  origin: '*'
+}));
 // (async()=>{
 //     try{
 //     await redisClient.connect()
