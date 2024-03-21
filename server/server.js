@@ -6,7 +6,7 @@ const routes=require('./routes')
 const connection=require('./db')
 const redisClient=require('./redis')
 const cors=require('cors')
-
+require('dotenv').config();
 
 // Connect to MySQL
 connection.connect((err) => {
