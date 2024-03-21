@@ -113,11 +113,11 @@ const snippets = async (req, res) => {
       const results = await con.query(sql);
 
       if (results[0].length == 0) {
-        res.status(202).json({ message: "No snippet found" });
+        res.status(404).json({ message:"No snippet found",data:[] });
       } else {
         redisClient.SETEX(redisKey, 3600, JSON.stringify(results[0]));
         console.log("Snippet 2 fetched");
-        res.status(200).json(results[0]);
+        res.status(200).json({data:results[0],message:"Snippets fetched"});
       }
     }
   } catch (err) {
