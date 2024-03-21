@@ -10,11 +10,11 @@ const Page2 = () => {
             console.log(response);
             
             setSubmissions(response?.data)
-            console.log(response?.data?.message);
+            
 
             }
             catch(err){
-                console.log(err?.data?.error)
+                console.log(err?.response?.data?.error)
             }
             
         }
