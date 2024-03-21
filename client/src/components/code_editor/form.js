@@ -4,7 +4,7 @@ import CodeEditor from '@uiw/react-textarea-code-editor';
 import axios from 'axios';
 import {toast} from 'react-toastify'
 import { server } from "../../server";
-import Editor from "@monaco-editor/react";
+// import Editor from "@monaco-editor/react";
 const Form= () => {
   const [formData, setFormData] = useState({
     username: '',
@@ -12,31 +12,31 @@ const Form= () => {
     sourceCode: '',
     stdin: ''
   });
-  const [languages, setLanguages] = useState([])
-  const [languageid, setLanguageId] = useState([])
+  // const [languages, setLanguages] = useState([])
+  // const [languageid, setLanguageId] = useState([])
 
-  useEffect(()=>{
-    const langget=async()=>{
+  // useEffect(()=>{
+  //   const langget=async()=>{
           
-    const options = {
-      method: 'GET',
-      url: 'https://judge0-ce.p.rapidapi.com/languages',
-      headers: {
-        'X-RapidAPI-Key': 'e6bc3eb079msh173eaaccc8f673ep1c000cjsn20b4788dcede',
-        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-      }
-    };
+  //   const options = {
+  //     method: 'GET',
+  //     url: 'https://judge0-ce.p.rapidapi.com/languages',
+  //     headers: {
+  //       "X-RapidAPI-Key": process.env.JUDGE_KEY,
+
+  //     }
+  //   };
     
-    try {
-      const response = await axios.request(options);
-      console.log(response.data);
-      setLanguages(response.data)
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  langget()
-  },[])
+  //   try {
+  //     const response = await axios.request(options);
+  //     console.log(response.data);
+  //     setLanguages(response.data)
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }
+  // langget()
+  // },[])
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     // console.log(name);

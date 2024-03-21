@@ -22,8 +22,8 @@ const submit = async (req, res) => {
       headers: {
         "content-type": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Key": "e6bc3eb079msh173eaaccc8f673ep1c000cjsn20b4788dcede",
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key": process.env.JUDGE_KEY,
+        "X-RapidAPI-Host": process.env.JUDGE_HOST,
       },
       data: {
         language_id: langId,
@@ -45,8 +45,8 @@ const submit = async (req, res) => {
         fields: "*",
       },
       headers: {
-        "X-RapidAPI-Key": "e6bc3eb079msh173eaaccc8f673ep1c000cjsn20b4788dcede",
-        "X-RapidAPI-Host": "judge0-ce.p.rapidapi.com",
+        "X-RapidAPI-Key": process.env.JUDGE_KEY,
+        "X-RapidAPI-Host": process.env.JUDGE_HOST,
       },
     };
 
