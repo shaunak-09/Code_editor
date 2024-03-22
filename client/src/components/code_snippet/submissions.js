@@ -7,9 +7,9 @@ const Page2 = () => {
         const fetchData = async() => {
             try{
                 const response = await axios.get(`${server}/snippets`)
-            console.log(response);
+            console.log(response?.data?.message);
             
-            setSubmissions(response?.data)
+            setSubmissions(response?.data?.data)
             
 
             }

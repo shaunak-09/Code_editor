@@ -51,7 +51,7 @@ const submit = async (req, res) => {
     };
 
     const response1 = await axios.request(options1);
-    // console.log(response1.data);
+    console.log(response1.data);
     var output;
     if (response1.data.stdout == null)
       output = response1?.data?.status?.description;
