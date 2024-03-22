@@ -5,59 +5,89 @@ const axios = require("axios");
 
 const submit = async (req, res) => {
   const { username, language, stdin, sourceCode } = req.body;
-  const { langId } = req.query;
+  // const { langId } = req.query;
   // console.log(langId);
   const timestamp = new Date().toISOString().slice(0, 19).replace("T", " ");
   //   const truncatedSourceCode = sourceCode.slice(0, 100); // Limit source code to 100 characters
 
   try {
-    // console.log(sourceCode);
+    var languageID = '';
+    if(language=='cpp'||language=='java'){
+        languageID=language;
+    }
+    if(language=='js'){
+        languageID='nodejs';
+    }
+    if(language=='py'){
+        languageID='python3';
+    }
+    // console.log(process.env.RAPID_URL);
     const options = {
-      method: "POST",
-      url: "https://judge0-ce.p.rapidapi.com/submissions",
-      params: {
-        base64_encoded: "true",
-        fields: "*",
-      },
-      headers: {
-        "content-type": "application/json",
-        "Content-Type": "application/json",
-        "X-RapidAPI-Key": process.env.JUDGE_KEY,
-        "X-RapidAPI-Host": process.env.JUDGE_HOST,
-      },
-      data: {
-        language_id: langId,
-        source_code: JSON.stringify(sourceCode),
-        stdin: stdin,
-      },
-    };
+        method: 'POST',
+        url: process.env.RAPID_URL,
+        headers: {
+          'content-type': 'application/json',
+          'X-RapidAPI-Key': process.env.RAPID_KEY,
+          'X-RapidAPI-Host': process.env.RAPID_HOST
+        },
+        data: {
+          language: languageID,
+          version: 'latest',
+          code:sourceCode,
+          input: stdin
+        }
+      };
+      
+          const response = await axios.request(options);
+          console.log(response.data.output);
+          const output=response.data.output;
+    // console.log(sourceCode);
+    // const options = {
+    //   method: "POST",
+    //   url: "https://judge0-ce.p.rapidapi.com/submissions",
+    //   params: {
+    //     base64_encoded: "true",
+    //     fields: "*",
+    //   },
+    //   headers: {
+    //     "content-type": "application/json",
+    //     "Content-Type": "application/json",
+    //     "X-RapidAPI-Key": process.env.JUDGE_KEY,
+    //     "X-RapidAPI-Host": process.env.JUDGE_HOST,
+    //   },
+    //   data: {
+    //     language_id: langId,
+    //     source_code: JSON.stringify(sourceCode),
+    //     stdin: stdin,
+    //   },
+    // };
 
-    const response = await axios.request(options);
-    // console.log(response.data);
-    const output_token = response.data.token;
-    // console.log(output_token);
+    // const response = await axios.request(options);
+    // // console.log(response.data);
+    // const output_token = response.data.token;
+    // // console.log(output_token);
 
-    const options1 = {
-      method: "GET",
-      url: `https://judge0-ce.p.rapidapi.com/submissions/${output_token}`,
-      params: {
-        base64_encoded: "true",
-        fields: "*",
-      },
-      headers: {
-        "X-RapidAPI-Key": process.env.JUDGE_KEY,
-        "X-RapidAPI-Host": process.env.JUDGE_HOST,
-      },
-    };
+    // const options1 = {
+    //   method: "GET",
+    //   url: `https://judge0-ce.p.rapidapi.com/submissions/${output_token}`,
+    //   params: {
+    //     base64_encoded: "true",
+    //     fields: "*",
+    //   },
+    //   headers: {
+    //     "X-RapidAPI-Key": process.env.JUDGE_KEY,
+    //     "X-RapidAPI-Host": process.env.JUDGE_HOST,
+    //   },
+    // };
 
-    const response1 = await axios.request(options1);
-    // console.log(response1.data);
-    var output;
-    if (response1.data.stdout == null)
-      output = response1?.data?.status?.description;
-    else output = response1.data.stdout;
+    // const response1 = await axios.request(options1);
+    // // console.log(response1.data);
+    // var output;
+    // if (response1.data.stdout == null)
+    //   output = response1?.data?.status?.description;
+    // else output = response1.data.stdout;
 
-    console.log(output);
+    // console.log(output);
 
     const truncatedSourceCode = sourceCode.slice(0, 100);
     const sql =
