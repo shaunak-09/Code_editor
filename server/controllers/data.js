@@ -105,7 +105,7 @@ const snippets = async (req, res) => {
     if (cachedData) {
       console.log("Snippet 1 fetched");
       const snippets = JSON.parse(cachedData);
-      res.status(200).json(snippets);
+      res.status(200).json({data:snippets,message:"Snippets fetched"});
     } else {
       const sql =
         "SELECT username, language, stdin, source_code,output, timestamp FROM user";
